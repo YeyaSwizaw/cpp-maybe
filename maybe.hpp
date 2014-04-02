@@ -49,6 +49,15 @@ public:
 
     } // auto operator>>(F f) -> Maybe<decltype(f(this->get()))>;
 
+    template<typename F>
+    void call(F f) {
+        if(!none) { f(data); }
+    }
+
+    template<typename F1, typename F2>
+    void callElse(F1 f1, F2 f2) {
+        if(none) { f2(); } else { f1(data); }
+    }
 
 private:
     T data;
